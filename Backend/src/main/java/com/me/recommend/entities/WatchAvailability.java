@@ -20,4 +20,8 @@ public class WatchAvailability {
     private String streamingPlatform; // Netflix, Hulu, Prime etc.
 
     private String watchUrl; // Link to watch
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
 }

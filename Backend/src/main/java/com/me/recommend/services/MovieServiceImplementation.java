@@ -27,9 +27,19 @@ public class MovieServiceImplementation implements MovieService{
     }
 
     @Override
+    public Movie createMovie() {
+        Movie newMovie = new Movie();
+        newMovie.setTitle(newMovie.getTitle());
+
+        return newMovie;
+    }
+    /*
+    @Override
     public MovieDTO createMovie(MovieDTO movieDTO) {
         // Create new movie object and convert DTO to entity
-        Movie movie = movieMapper.toEntity(movieDTO);
+        Movie newMovie = createMovie(movieDTO);
+
+                movieMapper.toEntity(movieDTO);
 
 
         // Set back‑references for nested objects (important!)
@@ -38,7 +48,7 @@ public class MovieServiceImplementation implements MovieService{
         // (WatchAvailability.movie) to determine the foreign key value in the database.
         // Without this, the child entities would not be linked to the parent when saved.
         if (movie.getWatchAvailabilities() != null) {
-            movie.getWatchAvailabilities().forEach(w -> w.setMovie(movie));
+            movie.getWatchAvailabilities().forEach(watchAvailability -> watchAvailability.setMovie(movie));
         }
 
         // Save movie to repository
@@ -47,6 +57,7 @@ public class MovieServiceImplementation implements MovieService{
         // Return the saved movie to DTO
         return movieMapper.toDTO(savedMovie);
     }
+    */
 
     @Override
     public MovieDTO getMovieById(Long id) {
@@ -66,8 +77,8 @@ public class MovieServiceImplementation implements MovieService{
     }
 
     @Override
-    public List<MovieDTO> getMovieByCategory(String category) {
-        List<Movie> movies = movieRepository.findMovieByCategory(Movie.Category.valueOf(category));
+    public List<MovieDTO> getMoviesByCategory(String category) {
+        List<Movie> movies = movieRepository.findMovieByCategory(Movie.Category.valueOf(category.toUpperCase()));
 
         return movies.stream()
                 .map(movieMapper::toDTO)
@@ -93,6 +104,9 @@ public class MovieServiceImplementation implements MovieService{
 
     @Override
     public void delete(Long id) {
+        if (!movieRepository.existsById(id)) {
+            throw new RuntimeException("Movie not found");
+        }
         movieRepository.deleteById(id);
     }
 
@@ -128,14 +142,14 @@ public class MovieServiceImplementation implements MovieService{
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie not found"));
 
-        boolean removed = movie.getWatchAvailabilities().removeIf(
-                w -> w.getId().equals(watchAvailabilityId)
-        );
+        WatchAvailability watchAvailability = movie.getWatchAvailabilities()
+                .stream()
+                .filter(w -> w.getId().equals(watchAvailabilityId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("WatchAvailability not found"));
 
-        // Optional: throw if nothing was removed
-        if (!removed) {
-            throw new RuntimeException("WatchAvailability not found for this movie");
-        }
+        movie.getWatchAvailabilities().remove(watchAvailability);
+        watchAvailability.setMovie(null); // break back-reference
 
         movieRepository.save(movie);
 
