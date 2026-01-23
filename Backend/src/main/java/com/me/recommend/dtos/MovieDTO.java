@@ -1,5 +1,7 @@
 package com.me.recommend.dtos;
 
+import com.me.recommend.entities.Movie;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,13 +12,17 @@ import java.util.List;
 @Setter
 public class MovieDTO {
 
+    private Long id;
+
     private String title;
 
     private LocalDate releaseDate;
 
     private String posterUrl;
 
-    private String category;
+    private String watchUrl;
 
-    private List<WatchAvailabilityDTO> watchAvailabilities;
+    private Movie.Category category;
+
+
 }

@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
 Class representing a movie entity
@@ -26,15 +24,10 @@ public class Movie {
 
     private String posterUrl;
 
+    private String watchUrl;
+
     @Enumerated(EnumType.STRING)
     private Category category;
-
-    @OneToMany(
-            mappedBy = "movie",
-            cascade = CascadeType.ALL, // Applies to all cascade types
-            orphanRemoval = true       // Auto deletion of child entities when no longer referenced by parent
-    )
-    private List<WatchAvailability> watchAvailabilities = new ArrayList<>();
 
     public enum Category {
         ACTION,

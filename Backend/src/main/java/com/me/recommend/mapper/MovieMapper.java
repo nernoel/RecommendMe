@@ -1,23 +1,26 @@
 package com.me.recommend.mapper;
 
 import com.me.recommend.dtos.MovieDTO;
-import com.me.recommend.dtos.WatchAvailabilityDTO;
 import com.me.recommend.entities.Movie;
-import com.me.recommend.entities.WatchAvailability;
-import org.mapstruct.Mapper;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
-public interface MovieMapper {
+@Component
+public class MovieMapper {
 
-    /*  This line is not necessary when using Spring
-    MovieMapper INSTANCE = Mappers.getMapper(MovieMapper.class);
-    */
+    private final ModelMapper modelMapper;
 
-    MovieDTO toDTO(Movie movie);
+    @Autowired
+    public MovieMapper(ModelMapper modelMapper) {
+        this.modelMapper = new ModelMapper();
+    }
 
-    Movie toEntity(MovieDTO movieDTO);
+    public MovieDTO toDTO(Movie movie) {
+        return modelMapper.map(movie, MovieDTO.class);
+    }
 
-    WatchAvailabilityDTO toWatchAvailabilityDTO(WatchAvailability watch);
-
-    WatchAvailability toWatchAvailabilityEntity(WatchAvailabilityDTO watchDto);
+    public Movie toEntity(MovieDTO movieDTO) {
+        return modelMapper.map(movieDTO, Movie.class);
+    }
 }

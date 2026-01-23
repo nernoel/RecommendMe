@@ -1,0 +1,10 @@
+export enum MovieCategory {
+  ACTION = "ACTION",
+  COMEDY = "COMEDY",
+  FAMILY = "FAMILY",
+  HORROR = "HORROR",
+  DRAMA = "DRAMA",
+  FANTASY = "FANTASY",
+  ROMANCE = "ROMANCE",
+  ANIMATION = "ANIMATION",
+}
