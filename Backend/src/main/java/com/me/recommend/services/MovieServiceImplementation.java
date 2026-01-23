@@ -41,6 +41,7 @@ public class MovieServiceImplementation implements MovieService {
         List<Movie> movieList = movieRepository.findAll();
         List<MovieDTO> movieDTOList = new ArrayList<>();
 
+        // Map each movie
         for (Movie movie : movieList) {
             MovieDTO movieDTO = movieMapper.toDTO(movie);
             movieDTOList.add(movieDTO);
