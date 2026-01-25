@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
+    /*
+    Injecting model mapper bean into the spring configuration
+     */
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();

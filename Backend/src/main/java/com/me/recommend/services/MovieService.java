@@ -8,10 +8,10 @@ import java.util.List;
 public interface MovieService {
 
     // Create a new movie object
-    public MovieDTO createMovie(MovieDTO movieDTO);
+    MovieDTO createMovie(MovieDTO movieDTO);
 
-    // Get movie by id
-    MovieDTO getMovieById(Long id);
+    // Create a new list of movie objects
+    List<MovieDTO> createMovies(List<MovieDTO> movieDTOList);
 
     // Get all movies from repository
     List<MovieDTO> getAllMovies();

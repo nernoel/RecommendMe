@@ -6,7 +6,7 @@ export default async function Home() {
 
     return (
         <main style={{ padding: "2rem" }}>
-            <h1>Recommended Movies 🎬</h1>
+            <h1>Recommended Movies for 2026 🎬</h1>
             <MovieGrid movies={movies} />
         </main>
     )

@@ -32,8 +32,19 @@ public class MovieServiceImplementation implements MovieService {
     }
 
     @Override
-    public MovieDTO getMovieById(Long id) {
-        return null;
+    public List<MovieDTO> createMovies(List<MovieDTO> movieDTOList) {
+        List<MovieDTO> movies = new ArrayList<>();
+
+        // Map each entity to DTO and save to repo
+        for (MovieDTO movieDTO : movieDTOList) {
+            Movie movie = movieMapper.toEntity(movieDTO);
+            Movie savedMovie = movieRepository.save(movie);
+
+            // Convert back to DTO
+            MovieDTO savedMovieDTO = movieMapper.toDTO(savedMovie);
+            movies.add(savedMovieDTO);
+        }
+        return movies;
     }
 
     @Override
@@ -41,7 +52,7 @@ public class MovieServiceImplementation implements MovieService {
         List<Movie> movieList = movieRepository.findAll();
         List<MovieDTO> movieDTOList = new ArrayList<>();
 
-        // Map each movie
+        // Map each movie by iterating through each movie
         for (Movie movie : movieList) {
             MovieDTO movieDTO = movieMapper.toDTO(movie);
             movieDTOList.add(movieDTO);

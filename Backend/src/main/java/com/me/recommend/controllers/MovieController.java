@@ -1,7 +1,6 @@
 package com.me.recommend.controllers;
 
 import com.me.recommend.dtos.MovieDTO;
-import com.me.recommend.entities.Movie;
 import com.me.recommend.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,13 +22,22 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @PostMapping
+    @PostMapping("/create-movie")
     public ResponseEntity<MovieDTO> createMovie(@RequestBody MovieDTO movieDTO) {
         MovieDTO createdMovie = movieService.createMovie(movieDTO);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(createdMovie);
+    }
+
+    @PostMapping("/create-movies")
+    public ResponseEntity<List<MovieDTO>> createMovies(@RequestBody List<MovieDTO> movieDTOList) {
+        List<MovieDTO> createdMovies = movieService.createMovies(movieDTOList);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(createdMovies);
     }
 
     @GetMapping
