@@ -2,11 +2,11 @@ import { Movie } from "@/app/types/movieType"
 import MovieCard from "./MovieCard"
 
 type MovieGridProps = {
-    movies: Movie[]
+    movies?: Movie[]  // Make movies optional to avoid crashes if undefined
 }
 
-export default function MovieGrid({ movies }: MovieGridProps) {
-    if (movies.length === 0) {
+export default function MovieGrid({ movies = [] }: MovieGridProps) {
+    if (!movies || movies.length === 0) {
         return <p>No recommendations right now.</p>
     }
 
@@ -20,7 +20,10 @@ export default function MovieGrid({ movies }: MovieGridProps) {
             }}
         >
             {movies.map(movie => (
-                <MovieCard key={movie.id} movie={movie} />
+                // Defensive check: only render if movie and movie.id exist
+                movie && movie.id ? (
+                    <MovieCard key={movie.id} movie={movie} />
+                ) : null
             ))}
         </div>
     )

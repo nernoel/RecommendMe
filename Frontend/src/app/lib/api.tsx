@@ -9,5 +9,10 @@ export async function getRecommendedMovies(): Promise<Movie[]> {
         throw new Error("Failed to fetch movies")
     }
 
-    return res.json()
+    try {
+        return await res.json()
+    } catch (error) {
+        console.error("Failed to parse movies JSON:", error)
+        return []
+    }
 }

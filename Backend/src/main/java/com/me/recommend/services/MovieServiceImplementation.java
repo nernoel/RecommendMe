@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -58,5 +59,30 @@ public class MovieServiceImplementation implements MovieService {
             movieDTOList.add(movieDTO);
         }
         return movieDTOList;
+    }
+
+    @Override
+    public MovieDTO getMovieById(Long id) {
+        Movie movie = movieRepository.findById(id)
+                // Throw exception for returning optional BUG
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+        MovieDTO movieDTO = movieMapper.toDTO(movie);
+        return movieDTO;
+    }
+
+    @Override
+    public MovieDTO updateMovieById(Long movieId, MovieDTO movieDTO) {
+        Movie movieToUpdate = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        movieToUpdate.setTitle(movieDTO.getTitle());
+        movieToUpdate.setReleaseDate(movieDTO.getReleaseDate());
+        movieToUpdate.setPosterUrl(movieDTO.getPosterUrl());
+        movieToUpdate.setWatchUrl(movieDTO.getWatchUrl());
+        movieToUpdate.setCategory(movieDTO.getCategory());
+
+        movieRepository.save(movieToUpdate);
+        return movieMapper.toDTO(movieToUpdate);
+
     }
 }

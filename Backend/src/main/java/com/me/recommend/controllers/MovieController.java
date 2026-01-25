@@ -1,6 +1,7 @@
 package com.me.recommend.controllers;
 
 import com.me.recommend.dtos.MovieDTO;
+import com.me.recommend.entities.Movie;
 import com.me.recommend.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,5 +48,23 @@ public class MovieController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(getAllMovies);
+    }
+
+    @GetMapping("/get-movie/{id}")
+    public ResponseEntity<MovieDTO> getMovieById(@PathVariable Long id) {
+        MovieDTO movieDTO = movieService.getMovieById(id);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(movieDTO);
+    }
+
+    @PatchMapping("/update-movie/{id}")
+    public ResponseEntity<MovieDTO> updateMovieById(@PathVariable Long id, @RequestBody MovieDTO movieDTO) {
+        MovieDTO updatedMovie = movieService.updateMovieById(id, movieDTO);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(updatedMovie);
     }
 }
