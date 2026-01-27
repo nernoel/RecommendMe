@@ -1,62 +1,44 @@
-import { Movie } from "@/app/types/movieType"
-import Link from "next/link"
+import { Movie } from "@/app/types/movieType";
+import Link from "next/link";
 
 type MovieCardProps = {
-    movie: Movie
-}
+    movie: Movie;
+};
 
 export default function MovieCard({ movie }: MovieCardProps) {
     return (
-        <div
-            style={{
-                border: "1px solid #e5e7eb",
-                borderRadius: "8px",
-                padding: "1rem",
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.5rem",
-            }}
-        >
+        <div className="flex flex-col gap-4 rounded-xl bg-white border border-gray-200 p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <img
                 src={movie.posterUrl}
                 alt={movie.title}
-                style={{
-                    width: "100%",
-                    borderRadius: "6px",
-                    objectFit: "cover",
-                }}
+                className="w-full rounded-lg object-cover aspect-[3/4]"
             />
 
-            <h3>{movie.title}</h3>
+            <h3 className="font-mono text-lg font-extrabold text-gray-900">
+                {movie.title}
+            </h3>
 
-            <p style={{ fontSize: "0.9rem", color: "#555" }}>
+            <p className="text-sm text-gray-600">
                 {movie.category} • {movie.releaseDate}
             </p>
 
-            <div style={{ marginTop: "auto", display: "flex", gap: "0.5rem" }}>
+            <div className="mt-auto flex gap-3">
                 <a
                     href={movie.watchUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="rounded-full bg-gradient-to-r from-blue-400 to-purple-600 px-4 py-2 text-white text-sm font-semibold shadow hover:brightness-110 transition"
                 >
-                    <button>Watch</button>
+                    Watch
                 </a>
 
-                <Link href={`/movies/${movie.id}`}>
-                    <button>Details</button>
+                <Link
+                    href={`/movies/${movie.id}`}
+                    className="rounded-full border border-purple-600 px-4 py-2 text-purple-600 text-sm font-semibold hover:bg-purple-600 hover:text-white transition"
+                >
+                    Details
                 </Link>
             </div>
         </div>
-    )
-}
-
-const cardStyle = {
-    padding: "1rem",
-    borderRadius: "8px",
-    border: "1px solid #ddd"
-}
-
-const imgStyle = {
-    width: "100%",
-    borderRadius: "6px"
+    );
 }

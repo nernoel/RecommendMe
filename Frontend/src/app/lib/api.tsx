@@ -1,16 +1,19 @@
 import { Movie } from "@/../src/app/types/movieType"
 
+/*
+Fetch movies from the database API
+ */
 export async function getRecommendedMovies(): Promise<Movie[]> {
-    const res = await fetch("http://localhost:3000/api/movies", {
-        cache: "no-store",
+    const response : Response = await fetch("http://localhost:3000/api/movies", {
     })
 
-    if (!res.ok) {
+    if (!response.ok) {
         throw new Error("Failed to fetch movies")
     }
 
     try {
-        return await res.json()
+        return await response.json()
+
     } catch (error) {
         console.error("Failed to parse movies JSON:", error)
         return []

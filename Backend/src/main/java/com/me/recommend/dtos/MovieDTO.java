@@ -1,12 +1,10 @@
 package com.me.recommend.dtos;
 
 import com.me.recommend.entities.Movie;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter

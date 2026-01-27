@@ -1,28 +1,46 @@
-import { Movie } from "@/../src/app/types/movieType"
-import { getRecommendedMovies } from "@/../src/app/lib/api"
-import MovieGrid from "@/../src/app/components/movies/MovieGrid"
-
+import { Movie } from "@/../src/app/types/movieType";
+import { getRecommendedMovies } from "@/../src/app/lib/api";
+import MovieGrid from "@/../src/app/components/movies/MovieGrid";
+import Navbar from "@/../src/app/components/PageComponents/NavBar";
 
 export default async function Home() {
-    let movies: Movie[] = []
-    let fetchError = false
+    let movies: Movie[] = [];
+    let fetchError = false;
 
     try {
-        movies = await getRecommendedMovies()
+        movies = await getRecommendedMovies();
     } catch (error) {
-        console.error("Error loading movies:", error)
-        fetchError = true
+        console.error("Error loading movies:", error);
+        fetchError = true;
     }
 
     return (
-        <main style={{ padding: "2rem" }}>
-            <h1>Recommended Movies for 2026 🎬</h1>
+        <div className="min-h-screen bg-gray-50">
+            {/* Fixed Navbar */}
+            <Navbar />
 
-            {fetchError && <p style={{ color: "red" }}>Failed to load movies.</p>}
+            {/* Page Content */}
+            <main className="pt-36 px-6 max-w-7xl mx-auto">
+                <h1 className="font-mono text-4xl md:text-5xl font-extrabold text-gray-900 mb-10">
 
-            {!fetchError && movies.length === 0 && <p>No movies found.</p>}
+                </h1>
 
-            {!fetchError && movies.length > 0 && <MovieGrid movies={movies} />}
-        </main>
-    )
+                {fetchError && (
+                    <p className="text-red-500 font-mono">
+                        Failed to load movies.
+                    </p>
+                )}
+
+                {!fetchError && movies.length === 0 && (
+                    <p className="text-gray-600 font-mono">
+                        No movies found.
+                    </p>
+                )}
+
+                {!fetchError && movies.length > 0 && (
+                    <MovieGrid movies={movies} />
+                )}
+            </main>
+        </div>
+    );
 }
