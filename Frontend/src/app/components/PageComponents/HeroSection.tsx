@@ -10,7 +10,7 @@ export default function HeroSection(){
                 <div className="">
                     <h1 className="font-mono mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r to-purple-600 from-blue-400"> Quickly view some of the best movies to see in 2026!</span><h1>{/* emtpy text */}</h1>
                     </h1>
-                    <p className="font-mono text-lg font-normal text-gray-700 lg:text-xl">Feeling bored? Get some recommended movies to watch today!. Click to get started! 👇</p>
+                    <p className="font-mono text-lg font-normal text-gray-700 lg:text-xl">Feeling bored? Get some recommended movies to watch today! Click to get started! 👇</p>
 
                 </div>
 
